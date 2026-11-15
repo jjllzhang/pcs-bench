@@ -21,7 +21,7 @@ pcs-bench/
 | ERA | 2D algebraic (`agnostir`) | `secp256k1` scalar | BLAKE3-256 | 100-bit (conditional) | EPYC 9754 (32T) | 20–30 | [md](results/era.md) · [csv](results/era.csv) |
 | FRI-Binius (`p3-binary-pcs`) | Cantor RS + BaseFold / ring-switch (`BinaryPcs`, `BooleanPcs`) | `GF(2^32/64/128)` / `GF(2)` bits | Keccak-256 | 94.5–102.4 bit algebraic | EPYC 9754 (32T) | 20–30 | [md](results/fri-binius.md) · [csv](results/fri-binius.csv) |
 | HyperFold | `QA`, `RS` (`r∈{2,4,8}`, `c∈{2,4}`) | Goldilocks (ext3), M127 (ext2) | BLAKE3 | 100-bit (IOP + binding) | EPYC 9754 (32T) | 20–30 | [md](results/hyperfold.md) · [csv](results/hyperfold.csv) |
-| Ligerito | RS (`rate=1/2, 1/4`, Boolean open) | `BinaryElem32` (ext `BinaryElem128`) | BLAKE3 / SHA-256 | 100-bit (draft, unaudited) | EPYC 9754 (32T) | 20–30 | [md](results/ligerito.md) · [csv](results/ligerito.csv) |
+| Ligerito | RS (`rate=1/2, 1/4`) | `BinaryElem32` (ext `BinaryElem128`) | BLAKE3 / SHA-256 | 100-bit (draft, unaudited) | EPYC 9754 (32T) | 20–30 | [md](results/ligerito.md) · [csv](results/ligerito.csv) |
 | WHIR | `evaluations=1`, `pow_bits_max=20` | Goldilocks (ext3) | BLAKE3 | 100-bit | EPYC 9754 (32T) | 20–30 | [md](results/whir.md) · [csv](results/whir.csv) |
 
 ## Conventions
