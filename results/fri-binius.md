@@ -12,7 +12,7 @@ Measurements of [Plonky3 `p3-binary-pcs`](https://github.com/Plonky3/Plonky3) (`
   - `BooleanPcs` (`boolean`): `GF(2)` bits packed 128 per `BinaryField128` element (with ring switching and inner `BinaryPcs<BinaryField128, BinaryField128>`); `k` denotes `2^k` **bits** (i.e., `2^(k-7)` packed `GF(2^128)` elements).
 - **Hash / Transcript**: `Keccak256Hash` Merkle tree (`MerkleTreeMmcs`) and `BinaryChallenger` (`HashChallenger<Keccak256Hash>`)
 - **Security Target**: Target 100 bits (unique-decoding algebraic security bound via `BinaryPcsRegime` / `BooleanPcs::opening_security`, excluding hash/transcript collision resistance). Where `BinaryPcsConfig` rejects 100 bits, the highest accepted integer target `<= 100` is used and reported in `algebraic_bits` (dropping to `94.518` bits at `k = 30, rate = 1/2`). `BooleanPcs` reaches `100.44`–`102.39` algebraic bits (including ring switching).
-- **Scheme Constants**: Code rates `1/2` and `1/4`; `pow_bits = 8` for `BinaryPcs` and `pow_bits = 0` for `BooleanPcs` (matching upstream benchmark defaults); single-point opening at Boolean hypercube index `⌊2^k / 3⌋`.
+- **Scheme Constants**: Code rates `1/2` and `1/4`; `pow_bits = 8` and `pow_bits = 0` for `BinaryPcs`, and `pow_bits = 0` for `BooleanPcs`; single-point opening at Boolean hypercube index `⌊2^k / 3⌋`.
 
 ## Measurement Methodology
 
@@ -87,6 +87,72 @@ Measurements of [Plonky3 `p3-binary-pcs`](https://github.com/Plonky3/Plonky3) (`
 | 24 | 0.501 | 1.324 | 1.825 | 3.809 | 780.068 | 10.248 | 99.557 |
 | 26 | 2.379 | 5.249 | 7.628 | 4.603 | 944.567 | 40.994 | 97.535 |
 | 28 | 8.503 | 21.018 | 29.521 | 5.508 | 1115.980 | 163.993 | 95.513 |
+| 30 | — | — | — | — | — | — | — |
+
+### BinaryPcs — GF(2^32) base, GF(2^128) challenges (Rate 1/2, PoW 0)
+
+| k | Commit (s) | Open (s) | Prover (s) | Verify (ms) | Proof (KiB) | Peak RSS (GiB) | Algebraic Bits |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 20 | 0.032 | 0.057 | 0.089 | 4.061 | 719.097 | 0.275 | 101.216 |
+| 22 | 0.084 | 0.200 | 0.284 | 4.889 | 922.263 | 1.148 | 101.067 |
+| 24 | 0.281 | 0.814 | 1.095 | 5.881 | 1179.191 | 4.674 | 100.589 |
+| 26 | 1.035 | 2.952 | 3.986 | 6.865 | 1419.037 | 18.773 | 98.541 |
+| 28 | 4.011 | 11.234 | 15.244 | 7.901 | 1677.760 | 75.119 | 96.493 |
+| 30 | 17.300 | 44.746 | 62.046 | 8.647 | 1961.042 | 300.481 | 94.444 |
+
+### BinaryPcs — GF(2^32) base, GF(2^128) challenges (Rate 1/4, PoW 0)
+
+| k | Commit (s) | Open (s) | Prover (s) | Verify (ms) | Proof (KiB) | Peak RSS (GiB) | Algebraic Bits |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 20 | 0.047 | 0.082 | 0.129 | 3.006 | 538.208 | 0.560 | 100.943 |
+| 22 | 0.135 | 0.367 | 0.502 | 3.587 | 682.884 | 2.307 | 100.704 |
+| 24 | 0.547 | 1.391 | 1.937 | 4.167 | 839.939 | 9.294 | 99.642 |
+| 26 | 1.987 | 5.188 | 7.174 | 4.936 | 1009.907 | 37.247 | 97.621 |
+| 28 | 7.986 | 20.052 | 28.038 | 5.886 | 1187.872 | 148.995 | 95.599 |
+| 30 | — | — | — | — | — | — | — |
+
+### BinaryPcs — GF(2^64) base, GF(2^128) challenges (Rate 1/2, PoW 0)
+
+| k | Commit (s) | Open (s) | Prover (s) | Verify (ms) | Proof (KiB) | Peak RSS (GiB) | Algebraic Bits |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 20 | 0.033 | 0.066 | 0.099 | 4.040 | 718.299 | 0.285 | 101.216 |
+| 22 | 0.092 | 0.204 | 0.297 | 4.971 | 939.478 | 1.203 | 101.067 |
+| 24 | 0.303 | 0.775 | 1.078 | 5.886 | 1178.835 | 4.862 | 100.589 |
+| 26 | 1.200 | 2.793 | 3.993 | 6.707 | 1417.125 | 19.517 | 98.541 |
+| 28 | 4.532 | 10.682 | 15.215 | 7.902 | 1702.531 | 78.094 | 96.493 |
+| 30 | 19.746 | 42.519 | 62.265 | 8.643 | 1954.491 | 312.461 | 94.444 |
+
+### BinaryPcs — GF(2^64) base, GF(2^128) challenges (Rate 1/4, PoW 0)
+
+| k | Commit (s) | Open (s) | Prover (s) | Verify (ms) | Proof (KiB) | Peak RSS (GiB) | Algebraic Bits |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 20 | 0.056 | 0.100 | 0.156 | 3.031 | 538.382 | 0.580 | 100.943 |
+| 22 | 0.151 | 0.382 | 0.533 | 3.627 | 689.696 | 2.386 | 100.704 |
+| 24 | 0.576 | 1.390 | 1.966 | 4.225 | 850.771 | 9.610 | 99.642 |
+| 26 | 2.230 | 5.067 | 7.297 | 4.912 | 1007.222 | 38.486 | 97.621 |
+| 28 | 9.387 | 19.711 | 29.098 | 5.557 | 1194.426 | 153.980 | 95.599 |
+| 30 | — | — | — | — | — | — | — |
+
+### BinaryPcs — GF(2^128) base, GF(2^128) challenges (Rate 1/2, PoW 0)
+
+| k | Commit (s) | Open (s) | Prover (s) | Verify (ms) | Proof (KiB) | Peak RSS (GiB) | Algebraic Bits |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 20 | 0.030 | 0.085 | 0.115 | 4.028 | 716.233 | 0.316 | 101.216 |
+| 22 | 0.085 | 0.221 | 0.306 | 4.934 | 938.390 | 1.323 | 101.067 |
+| 24 | 0.270 | 0.833 | 1.102 | 5.837 | 1177.153 | 5.355 | 100.589 |
+| 26 | 1.220 | 3.119 | 4.339 | 6.919 | 1419.749 | 21.436 | 98.541 |
+| 28 | 4.197 | 11.801 | 15.998 | 7.615 | 1685.253 | 85.772 | 96.493 |
+| 30 | 16.945 | 46.507 | 63.452 | 8.670 | 1984.378 | 343.116 | 94.444 |
+
+### BinaryPcs — GF(2^128) base, GF(2^128) challenges (Rate 1/4, PoW 0)
+
+| k | Commit (s) | Open (s) | Prover (s) | Verify (ms) | Proof (KiB) | Peak RSS (GiB) | Algebraic Bits |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 20 | 0.046 | 0.113 | 0.159 | 3.020 | 545.809 | 0.626 | 100.943 |
+| 22 | 0.146 | 0.402 | 0.548 | 3.517 | 678.341 | 2.550 | 100.704 |
+| 24 | 0.541 | 1.477 | 2.018 | 4.266 | 844.442 | 10.246 | 99.642 |
+| 26 | 2.279 | 5.410 | 7.690 | 4.894 | 1021.392 | 40.996 | 97.621 |
+| 28 | 8.583 | 21.187 | 29.770 | 5.489 | 1197.831 | 163.998 | 95.599 |
 | 30 | — | — | — | — | — | — | — |
 
 ### BooleanPcs — GF(2) bits packed into GF(2^128) (Rate 1/2, PoW 0)
